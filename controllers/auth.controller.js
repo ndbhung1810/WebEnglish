@@ -38,8 +38,10 @@ exports.login = async (req, res) => {
         console.log(user.password);
         if (isMatched) {
             __idcreated = user.id;
+            __roleId = user.roleid;
             const token = await jwtUtil.createToken({ id: user.id });
             return res.json({
+                user:user,
                 access_token: token,
                 token_type: 'Bearer',
                 expires_in: jwtConfig.ttl,
@@ -65,6 +67,14 @@ exports.logout = async (req, res) => {
 
 
 exports.getUsers = async (req, res) => { 
+    if(__roleId == 3) {
+        return res.status(400).json({ 
+            message: 'Unauthorized',
+            status: false
+        });
+    }
+
+
     var page = req.query.page || 1;
     var limit = req.query.limit || 10;
     var query = req.query.query || "";
@@ -93,7 +103,24 @@ exports.getUser = async (req, res) => {
 
 
 exports.update = async (req, res) => { 
+
+    if(__roleId == 3) {
+        return res.status(400).json({ 
+            message: 'Unauthorized',
+            status: false
+        });
+    }
+    
     var dateTimeStamp = parseInt(Date.now()/1000);
+
+    const isExist = await AuthService.findUserByEmail(req.body.email);
+    if(isExist) {
+        return res.status(400).json({ 
+            message: 'Email already exists.' 
+        });
+    }
+
+    const hashedPassword = await bcryptUtil.createHash(req.body.password);
 
     const userData = {
         username: req.body.username,
@@ -101,7 +128,7 @@ exports.update = async (req, res) => {
         birthday:req.body.birthday,
         active:req.body.active,
         roleid:req.body.roleid,
-        password: req.body.password,
+        password: hashedPassword,
         createdat:req.body.createdat,
         updatedat:dateTimeStamp,
     }

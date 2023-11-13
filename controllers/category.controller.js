@@ -1,6 +1,14 @@
 const CategoryService = require('../services/category.service');
 
 exports.create = async (req, res) => { 
+
+    if(__roleId == 3) {
+        return res.status(400).json({ 
+            message: 'Unauthorized',
+            status: false
+        });
+    }
+
     var dateTimeStamp = parseInt(Date.now()/1000);
 
     const categoryData = {
@@ -21,6 +29,14 @@ exports.create = async (req, res) => {
 
 
 exports.update = async (req, res) => { 
+
+    if(__roleId == 3) {
+        return res.status(400).json({ 
+            message: 'Unauthorized',
+            status: false
+        });
+    }
+
     var dateTimeStamp = parseInt(Date.now()/1000);
 
     const categoryData = {
@@ -43,7 +59,16 @@ exports.update = async (req, res) => {
 }
 
 exports.delete = async (req, res) => { 
+
+    if(__roleId == 3) {
+        return res.status(400).json({ 
+            message: 'Unauthorized',
+            status: false
+        });
+    }
+
     await CategoryService.deleteCategory(req.params.id);
+    
     return res.json({
         message: 'Category delete successfully.',
         status : true
@@ -57,6 +82,7 @@ exports.getCategories = async (req, res) => {
     var query = req.query.query || "";
 
     var categories = await CategoryService.findAll(page,limit,query);
+
     var total = await CategoryService.getTotal();
 
     return res.status(200).json({

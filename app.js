@@ -10,6 +10,7 @@ const app = express();
 
 global.__basedir = __dirname;
 global.__idcreated = -1;
+global.__roleId = -1;
 
 app.use(logger('dev'));
 

@@ -1,6 +1,14 @@
 const TopicService = require('../services/topic.service');
 
 exports.create = async (req, res) => { 
+
+    if(__roleId == 3) {
+        return res.status(400).json({ 
+            message: 'Unauthorized',
+            status: false
+        });
+    }
+
     var dateTimeStamp = parseInt(Date.now()/1000);
 
     const topicData = {
@@ -12,6 +20,7 @@ exports.create = async (req, res) => {
     }
     
     const topic = await TopicService.createTopic(topicData);
+    
     return res.json({
         data: topic,
         message: 'Topic registered successfully.',
@@ -21,6 +30,14 @@ exports.create = async (req, res) => {
 
 
 exports.update = async (req, res) => { 
+
+    if(__roleId == 3) {
+        return res.status(400).json({ 
+            message: 'Unauthorized',
+            status: false
+        });
+    }
+
     var dateTimeStamp = parseInt(Date.now()/1000);
 
     const topicData = {
@@ -32,7 +49,9 @@ exports.update = async (req, res) => {
     }
     
     await TopicService.updateTopic(topicData,req.params.id);
+
     var topic = await TopicService.findByID(req.params.id);
+
     return res.json({
         data: topic,
         message: 'Topic updated successfully.',
@@ -41,7 +60,15 @@ exports.update = async (req, res) => {
 }
 
 exports.delete = async (req, res) => { 
+    if(__roleId == 3) {
+        return res.status(400).json({ 
+            message: 'Unauthorized',
+            status: false
+        });
+    }
+
     await TopicService.deleteTopic(req.params.id);
+
     return res.json({
         message: 'Topic delete successfully.',
         status : true
@@ -55,6 +82,7 @@ exports.getTopics = async (req, res) => {
     var query = req.query.query || "";
 
     var topics = await TopicService.findAll(page,limit,query);
+
     var total = await TopicService.getTotal();
 
     return res.status(200).json({
