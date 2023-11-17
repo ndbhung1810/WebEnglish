@@ -4,11 +4,13 @@ const router = express.Router();
 const AuthController = require('../controllers/auth.controller');
 const CategoryController= require('../controllers/category.controller');
 const TopicController= require('../controllers/topic.controller');
+const LessonController= require('../controllers/lesson.controller');
 const ErrorHandler = require('../middleware/error.middleware');
 const AuthGuard = require('../middleware/auth.middleware');
 const authValidate = require('../validatons/auth.validation');
 const categoryValidate = require('../validatons/category.validation');
 const topicValidate = require('../validatons/topic.validation');
+const lessonValidate = require('../validatons/lesson.validation');
 const validate = require('../utils/validator.util'); 
 
 
@@ -39,6 +41,14 @@ router.put('/topic/:id', AuthGuard, validate(topicValidate.topic), ErrorHandler(
 router.delete('/topic/:id', AuthGuard, ErrorHandler(TopicController.delete));
 router.get('/topic/search', AuthGuard, ErrorHandler(TopicController.getTopics));
 router.get('/topic/:id', AuthGuard, ErrorHandler(TopicController.getTopic));
+
+
+//Lesson
+router.post('/lesson/create', AuthGuard, validate(lessonValidate.lesson), ErrorHandler(LessonController.create));
+router.put('/lesson/:id', AuthGuard, validate(lessonValidate.lesson), ErrorHandler(LessonController.update));
+router.delete('/lesson/:id', AuthGuard, ErrorHandler(LessonController.delete));
+router.get('/lesson/search', AuthGuard, ErrorHandler(LessonController.getLessons));
+router.get('/lesson/:id', AuthGuard, ErrorHandler(LessonController.getLesson));
 
 
 router.all('*',  (req, res) => res.status(400).json({ message: 'Bad Request.'}));

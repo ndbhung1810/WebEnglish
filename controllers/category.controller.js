@@ -14,7 +14,7 @@ exports.create = async (req, res) => {
     const categoryData = {
         name: req.body.name,
         image: req.body.image,
-        idcreated: global.__idcreated,
+        idcreated: __idcreated,
         createdat:dateTimeStamp,
         updatedat:dateTimeStamp,
     }
@@ -42,7 +42,7 @@ exports.update = async (req, res) => {
     const categoryData = {
         name: req.body.name,
         image: req.body.image,
-        idcreated: global.__idcreated,
+        idcreated: __idcreated,
         createdat:req.body.createdat,
         updatedat:dateTimeStamp,
     }
