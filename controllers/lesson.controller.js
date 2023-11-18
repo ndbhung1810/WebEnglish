@@ -90,15 +90,15 @@ exports.getLessons = async (req, res) => {
     var page = req.query.page || 1;
     var limit = req.query.limit || 10;
     var query = req.query.query || "";
-    var idtopic = req.query.idtopic || -1;
+    var idtopic = req.query.idtopic || null;
 
-    // Validate idtopic
-    if (idtopic === null || idtopic === undefined) {
-        return res.status(400).json({ 
-            message: 'Invalid or missing idtopic',
-            status: false
-        });
-    }
+    // // Validate idtopic
+    // if (idtopic === null || idtopic === undefined) {
+    //     return res.status(400).json({ 
+    //         message: 'Invalid or missing idtopic',
+    //         status: false
+    //     });
+    // }
 
     var lessons = await LessonService.findAll(page, limit, query, idtopic);
 
