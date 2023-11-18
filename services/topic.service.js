@@ -20,7 +20,7 @@ exports.deleteTopic = (id) => {
 exports.findAll = (page, limit, query) => {
   const skip = (page - 1) * limit;
   return TopicModel.findAll({
-    limit,
+    limit:+limit,
     offset: skip,
     where: {
       name: { [Op.like]: `%${query}%` }

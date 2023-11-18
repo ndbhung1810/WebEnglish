@@ -20,7 +20,7 @@ exports.deleteCategory = (id) => {
 exports.findAll = (page, limit, query) => {
   const skip = (page - 1) * limit;
   return CategoryModel.findAll({
-    limit,
+    limit:+limit,
     offset: skip,
     where: {
       name: { [Op.like]: `%${query}%` }

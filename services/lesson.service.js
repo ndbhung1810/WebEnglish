@@ -1,5 +1,6 @@
 const LessonModel = require("../models/lesson.model");
 const Sequelize = require('sequelize');
+const Topics = require("../models/topic.model");
 const Op = Sequelize.Op;
 
 exports.createLesson = (lesson) => {
@@ -18,13 +19,16 @@ exports.deleteLesson = (id) => {
 };
 
 exports.findAll = (page, limit, query, idtopic) => {
+  console.log(idtopic)
   const skip = (page - 1) * limit;
+
   return LessonModel.findAll({
-    limit,
+    limit:+limit,
     offset: skip,
     where: {
-      idtopic: idtopic, 
-      name: { [Op.like]: `%${query}%` }
+      ...(!!idtopic ? {idtopic} : {}), 
+      name: { [Op.like]: `%${query}%` },
+      
     },
   });
 };

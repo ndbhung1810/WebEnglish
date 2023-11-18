@@ -32,7 +32,7 @@ exports.logoutUser = (token, exp) => {
 exports.findAll = (page, limit, query) => {
     const skip = (page - 1) * limit;
     return UserModel.findAll({
-      limit,
+      limit:+limit,
       offset: skip,
       where: {
         [Op.or]:{
