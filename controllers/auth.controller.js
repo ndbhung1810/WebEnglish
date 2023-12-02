@@ -114,13 +114,11 @@ exports.update = async (req, res) => {
     var dateTimeStamp = parseInt(Date.now()/1000);
 
     const isExist = await AuthService.findUserByEmail(req.body.email);
-    if(isExist) {
-        return res.status(400).json({ 
-            message: 'Email already exists.' 
-        });
-    }
 
-    const hashedPassword = await bcryptUtil.createHash(req.body.password);
+    let hashedPassword = req.body.password;
+    if(isExist.password !== req.body.password) {
+        hashedPassword = await bcryptUtil.createHash(req.body.password);
+    }
 
     const userData = {
         username: req.body.username,

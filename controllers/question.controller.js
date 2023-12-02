@@ -30,6 +30,15 @@ exports.create = async (req, res) => {
     }
     
     const question = await QuestionService.createQuestion(questionData);
+
+
+    var createdid = await AuthService.findUserById(question.idcreated);
+    var idtopic = await TopicService.findByID(question.idtopic);
+    var idcategory = await CategoryService.findByID(question.idcategory);
+
+    question.dataValues.created=createdid
+    question.dataValues.topic=idtopic
+    question.dataValues.category=idcategory
     
     return res.json({
         data: question,
@@ -69,6 +78,15 @@ exports.update = async (req, res) => {
 
     var question = await QuestionService.findByID(req.params.id);
 
+
+    var createdid = await AuthService.findUserById(question.idcreated);
+    var idtopic = await TopicService.findByID(question.idtopic);
+    var idcategory = await CategoryService.findByID(question.idcategory);
+
+    question.dataValues.created=createdid
+    question.dataValues.topic=idtopic
+    question.dataValues.category=idcategory
+
     return res.json({
         data: question,
         message: 'Question updated successfully.',
@@ -97,8 +115,8 @@ exports.getQuestions = async (req, res) => {
     var page = req.query.page || 1;
     var limit = req.query.limit || 10;
     var query = req.query.query || "";
-    var idcategory = req.query.idcategory || undefined;
-    var idtopic = req.query.idtopic || undefined;
+    var idcategory = req.query.idcategory || null;
+    var idtopic = req.query.idtopic || null;
 
     var questions = await QuestionService.findAll(page,limit,query,idtopic,idcategory);
 

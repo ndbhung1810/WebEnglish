@@ -19,35 +19,15 @@ exports.deleteQuestion = (id) => {
 
 exports.findAll = (page, limit, query, idtopic, idcategory) => {
   const skip = (page - 1) * limit;
-  if((idtopic == undefined || idtopic == null) 
-  && (idcategory == undefined || idcategory == null)){
-    return QuestionModel.findAll({
-      limit:+limit,
-      offset: skip,
-      where: {
-        name: { [Op.like]: `%${query}%` },
-      },
-    });
-  } else if((idtopic == undefined || idtopic == null) ) {
-    return QuestionModel.findAll({
-      limit:+limit,
-      offset: skip,
-      where: {
-        name: { [Op.like]: `%${query}%` },
-        idcategory:idcategory
-      },
-    });
-  } 
-  else if((idcategory == undefined || idcategory == null) ) {
-    return QuestionModel.findAll({
-      limit:+limit,
-      offset: skip,
-      where: {
-        name: { [Op.like]: `%${query}%` },
-        idtopic:idtopic
-      },
-    });
-  } 
+  return QuestionModel.findAll({
+    limit:+limit,
+    offset: skip,
+    where: {
+      ...(!!idtopic ? {idtopic} : {},!!idcategory ? {idcategory} : {}), 
+      name: { [Op.like]: `%${query}%` },
+      
+    },
+  });
 };
 
 
