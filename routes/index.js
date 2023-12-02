@@ -6,6 +6,9 @@ const CategoryController= require('../controllers/category.controller');
 const TopicController= require('../controllers/topic.controller');
 const LessonController= require('../controllers/lesson.controller');
 const QuestionController= require('../controllers/question.controller');
+const QuizController= require('../controllers/quiz.controller');
+
+
 const ErrorHandler = require('../middleware/error.middleware');
 const AuthGuard = require('../middleware/auth.middleware');
 const authValidate = require('../validatons/auth.validation');
@@ -13,6 +16,7 @@ const categoryValidate = require('../validatons/category.validation');
 const topicValidate = require('../validatons/topic.validation');
 const lessonValidate = require('../validatons/lesson.validation');
 const questionValidate = require('../validatons/question.validation');
+const quizValidate = require('../validatons/quiz.validation');
 const validate = require('../utils/validator.util'); 
 
 
@@ -59,6 +63,14 @@ router.put('/question/:id', AuthGuard, validate(questionValidate.question), Erro
 router.delete('/question/:id', AuthGuard, ErrorHandler(QuestionController.delete));
 router.get('/question/search', AuthGuard, ErrorHandler(QuestionController.getQuestions));
 router.get('/question/:id', AuthGuard, ErrorHandler(QuestionController.getQuestion));
+
+
+//Quiz
+router.post('/quiz/create', AuthGuard, validate(quizValidate.quiz), ErrorHandler(QuizController.create));
+router.put('/quiz/:id', AuthGuard, validate(quizValidate.quiz), ErrorHandler(QuizController.update));
+router.delete('/quiz/:id', AuthGuard, ErrorHandler(QuizController.delete));
+router.get('/quiz/search', AuthGuard, ErrorHandler(QuizController.getQuizs));
+router.get('/quiz/:id', AuthGuard, ErrorHandler(QuizController.getQuiz));
 
 
 router.all('*',  (req, res) => res.status(400).json({ message: 'Bad Request.'}));
