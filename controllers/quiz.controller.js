@@ -123,16 +123,16 @@ exports.getQuizs = async (req, res) => {
         quiz.dataValues.topic = topic;
         quiz.dataValues.category = category;
 
-        var listquiz =[];
+        var listQuestions =[];
 
-        var listIDQuiz = JSON.parse(quiz.dataValues.groupquestion);
-        for (let index = 0; index < listIDQuiz.length; index++) {
-            const quiz = await QuizService.findByID(listIDQuiz[index]);
-            listquiz.push(quiz);
+        var listQuestion = JSON.parse(quiz.dataValues.groupquestion);
+        for (let index = 0; index < listQuestion.length; index++) {
+            const question = await QuestionService.findByID(listQuestion[index]);
+            listQuestions.push(question);
             
         }
 
-        quiz.dataValues.listquiz = listquiz;
+        quiz.dataValues.listQuestions = listQuestions;
 
         return quiz;
     }));
@@ -161,6 +161,18 @@ exports.getQuiz = async (req, res) => {
     quiz.dataValues.created=createdid
     quiz.dataValues.topic=idtopic
     quiz.dataValues.category=idcategory
+
+
+    var listQuestions =[];
+
+    var listQuestion = JSON.parse(quiz.dataValues.groupquestion);
+    for (let index = 0; index < listQuestion.length; index++) {
+        const question = await QuestionService.findByID(listQuestion[index]);
+        listQuestions.push(question);
+        
+    }
+
+    quiz.dataValues.listQuestions = listQuestions;
 
     return res.status(200).json({
         data: quiz,
