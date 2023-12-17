@@ -122,6 +122,18 @@ exports.getQuizs = async (req, res) => {
         quiz.dataValues.created = created;
         quiz.dataValues.topic = topic;
         quiz.dataValues.category = category;
+
+        var listquiz =[];
+
+        var listIDQuiz = JSON.parse(quiz.dataValues.groupquestion);
+        for (let index = 0; index < listIDQuiz.length; index++) {
+            const quiz = await QuizService.findByID(listIDQuiz[index]);
+            listquiz.push(quiz);
+            
+        }
+
+        quiz.dataValues.listquiz = listquiz;
+
         return quiz;
     }));
 

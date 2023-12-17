@@ -3,6 +3,7 @@ const Joi = require('joi');
 module.exports = {
     question: Joi.object().keys({
         name: Joi.string().required(),
+        image: Joi.string().required(),
         idtopic: Joi.number().required(),
         idcategory: Joi.number().required(),
         idcreated: Joi.number().required(),

@@ -5,6 +5,9 @@ const Questions = sequelize.define('Questions', {
     name: {
         type: DataTypes.STRING 
     },
+    image: {
+        type: DataTypes.STRING 
+    },
     idtopic: {
         type: DataTypes.INTEGER 
     },

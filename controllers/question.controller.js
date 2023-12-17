@@ -16,6 +16,7 @@ exports.create = async (req, res) => {
 
     const questionData = {
         name: req.body.name,
+        image:req.body.image,
         idtopic:req.body.idtopic,
         idcategory:req.body.idcategory,
         idcreated: __idcreated,
@@ -61,6 +62,7 @@ exports.update = async (req, res) => {
 
     const questionData = {
         name: req.body.name,
+        image:req.body.image,
         idtopic:req.body.idtopic,
         idcategory:req.body.idcategory,
         idcreated: __idcreated,
