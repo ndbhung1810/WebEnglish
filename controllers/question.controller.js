@@ -26,6 +26,7 @@ exports.create = async (req, res) => {
         answerd:req.body.answerd,
         answer:req.body.answer,
         level:req.body.level,
+        type:req.body.type,
         createdat:dateTimeStamp,
         updatedat:dateTimeStamp,
     }
@@ -65,13 +66,13 @@ exports.update = async (req, res) => {
         image:req.body.image,
         idtopic:req.body.idtopic,
         idcategory:req.body.idcategory,
-        idcreated: __idcreated,
         answera:req.body.answera,
         answerb:req.body.answerb,
         answerc:req.body.answerc,
         answerd:req.body.answerd,
         answer:req.body.answer,
         level:req.body.level,
+        type:req.body.type,
         createdat:req.body.createdat,
         updatedat:dateTimeStamp,
     }

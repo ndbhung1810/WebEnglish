@@ -35,6 +35,9 @@ const Questions = sequelize.define('Questions', {
     level: {
         type: DataTypes.INTEGER 
     },
+    type: {
+        type: DataTypes.INTEGER 
+    },
     createdat: {
         type: DataTypes.INTEGER
     },
