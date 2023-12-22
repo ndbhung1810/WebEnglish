@@ -102,6 +102,38 @@ exports.getUser = async (req, res) => {
 }
 
 
+exports.updateUser = async (req, res) => {
+    var dateTimeStamp = parseInt(Date.now() / 1000);
+  
+    const isExist = await AuthService.findUserByEmail(req.body.email);
+  
+    let hashedPassword = req.body.password;
+    if (isExist.password !== req.body.password) {
+      hashedPassword = await bcryptUtil.createHash(req.body.password);
+    }
+  
+    const userData = {
+      username: req.body.username,
+      email: req.body.email,
+      birthday: req.body.birthday,
+      active: req.body.active,
+      roleid: req.body.roleid,
+      password: hashedPassword,
+      createdat: req.body.createdat,
+      updatedat: dateTimeStamp,
+    };
+  
+    await AuthService.update(userData, req.params.id);
+  
+    const user = await AuthService.findByID(req.params.id);
+  
+    return res.json({
+      data: user,
+      message: "User updated successfully.",
+      status: true,
+    });
+};
+
 exports.update = async (req, res) => { 
 
     if(__roleId == 3) {

@@ -23,6 +23,7 @@ const validate = require('../utils/validator.util');
 
 
 //Authencation
+router.put('/user/detail/:id', AuthGuard, ErrorHandler(AuthController.updateUser));
 router.post('/register', validate(authValidate.register), ErrorHandler(AuthController.register));
 router.post('/login',    validate(authValidate.login),    ErrorHandler(AuthController.login));
 router.get('/user',      AuthGuard,                 ErrorHandler(AuthController.getUser));
