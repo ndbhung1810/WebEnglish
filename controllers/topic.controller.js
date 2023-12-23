@@ -14,6 +14,8 @@ exports.create = async (req, res) => {
     const topicData = {
         name: req.body.name,
         image: req.body.image,
+        video: req.body.video,
+        description: req.body.description,
         idcreated: __idcreated,
         createdat:dateTimeStamp,
         updatedat:dateTimeStamp,
@@ -43,6 +45,8 @@ exports.update = async (req, res) => {
     const topicData = {
         name: req.body.name,
         image: req.body.image,
+        video: req.body.video,
+        description: req.body.description,
         idcreated: __idcreated,
         createdat:req.body.createdat,
         updatedat:dateTimeStamp,

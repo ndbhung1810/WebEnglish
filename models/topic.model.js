@@ -8,6 +8,12 @@ const Topics = sequelize.define('Topics', {
     image: {
         type: DataTypes.STRING 
     },
+    video: {
+        type: DataTypes.STRING 
+    },
+    description: {
+        type: DataTypes.STRING 
+    },
     idcreated: {
         type: DataTypes.INTEGER 
     },
