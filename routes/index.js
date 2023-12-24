@@ -1,4 +1,5 @@
 const express = require('express');
+const multer = require('multer');
 const router = express.Router();
 
 const AuthController = require('../controllers/auth.controller');
@@ -73,6 +74,32 @@ router.delete('/quiz/:id', AuthGuard, ErrorHandler(QuizController.delete));
 router.get('/quiz/search', AuthGuard, ErrorHandler(QuizController.getQuizs));
 router.get('/quiz/:id', AuthGuard, ErrorHandler(QuizController.getQuiz));
 
+
+
+
+// SET STORAGE
+var storage = multer.diskStorage({
+    destination: function (req, file, cb) {
+      cb(null, 'uploads')
+    },
+    filename: function (req, file, cb) {
+      cb(null, file.fieldname + '-' + Date.now())
+    }
+  })
+   
+  var upload = multer({ storage: storage })
+
+
+
+router.post('/uploadfile', upload.single('myFile'), (req, res, next) => {
+const file = req.file
+if (!file) {
+    const error = new Error('Please upload a file')
+    error.httpStatusCode = 400
+    return next(error)
+}
+res.send(file)
+})
 
 router.all('*',  (req, res) => res.status(400).json({ message: 'Bad Request.'}));
 

@@ -2,6 +2,7 @@ const QuestionService = require('../services/question.service');
 const TopicService = require('../services/topic.service');
 const CategoryService = require('../services/category.service');
 const AuthService = require('../services/auth.service');
+const fs = require("fs");
 
 exports.create = async (req, res) => { 
 
@@ -115,6 +116,39 @@ exports.delete = async (req, res) => {
 
 
 exports.getQuestions = async (req, res) => { 
+
+    // fs.readFile("filejson.json", "utf8", async (err, jsonString) => {
+    //     if (err) {
+    //         console.log("File read failed:", err);
+    //         return;
+    //     }
+    //     var objects = JSON.parse(jsonString);
+
+    //     var dateTimeStamp = parseInt(Date.now()/1000);
+    //     for(var i = 0 ; i< objects.length ; i++) {
+    //         const questionData = {
+    //             name: objects[i]['question'],
+    //             image:"https://media.istockphoto.com/id/1386740242/fr/vectoriel/bulles-vectorielles-avec-point-dinterrogation-ic%C3%B4nes-de-question-isol%C3%A9es-sur-blanc.jpg?s=612x612&w=0&k=20&c=kz86Gwowp4u5yWFOP5lzmfI-kf87rXX5eS2_-E2AUiQ=",
+    //             idtopic:9,
+    //             idcategory:4,
+    //             idcreated: 1,
+    //             answera: objects[i]['A'],
+    //             answerb: objects[i]['B'],
+    //             answerc: objects[i]['C'],
+    //             answerd: objects[i]['D'],
+    //             answer: objects[i]['answer'],
+    //             level:1,
+    //             type:0,
+    //             createdat:dateTimeStamp,
+    //             updatedat:dateTimeStamp,
+    //         }
+            
+    //         const question = await QuestionService.createQuestion(questionData);
+    //     }
+    // });
+
+
+
     var page = req.query.page || 1;
     var limit = req.query.limit || 10;
     var query = req.query.query || "";
@@ -147,6 +181,9 @@ exports.getQuestions = async (req, res) => {
 
 
 exports.getQuestion = async (req, res) => { 
+
+
+
 
     var question = await QuestionService.findByID(req.params.id);
 

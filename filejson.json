@@ -1,0 +1,81 @@
+[
+    {
+        "question": "Which animal is known as the 'King of the Jungle'?",
+        "A": "Elephant",
+        "B": "Lion",
+        "C": "Giraffe",
+        "D": "Tiger",
+        "answer": "B"
+    },
+    {
+        "question": "What is the largest mammal on Earth?",
+        "A": "Elephant",
+        "B": "Blue Whale",
+        "C": "Gorilla",
+        "D": "Polar Bear",
+        "answer": "B"
+    },
+    {
+        "question": "Which bird is known for its ability to mimic human speech?",
+        "A": "Eagle",
+        "B": "Parrot",
+        "C": "Ostrich",
+        "D": "Penguin",
+        "answer": "B"
+    },
+    {
+        "question": "What is the largest big cat in the world?",
+        "A": "Cheetah",
+        "B": "Jaguar",
+        "C": "Lion",
+        "D": "Tiger",
+        "answer": "D"
+    },
+    {
+        "question": "Which animal has a hump on its back and is known as the 'Ship of the Desert'?",
+        "A": "Camel",
+        "B": "Horse",
+        "C": "Zebra",
+        "D": "Giraffe",
+        "answer": "A"
+    },
+    {
+        "question": "What is the largest land animal?",
+        "A": "Elephant",
+        "B": "Giraffe",
+        "C": "Hippopotamus",
+        "D": "Rhinoceros",
+        "answer": "A"
+    },
+    {
+        "question": "Which animal is known for its black and white stripes?",
+        "A": "Giraffe",
+        "B": "Zebra",
+        "C": "Tiger",
+        "D": "Penguin",
+        "answer": "B"
+    },
+    {
+        "question": "What is the only flying mammal?",
+        "A": "Bat",
+        "B": "Bird",
+        "C": "Butterfly",
+        "D": "Dragonfly",
+        "answer": "A"
+    },
+    {
+        "question": "Which animal is known for its long neck?",
+        "A": "Elephant",
+        "B": "Giraffe",
+        "C": "Kangaroo",
+        "D": "Horse",
+        "answer": "B"
+    },
+    {
+        "question": "What is the fastest land animal?",
+        "A": "Cheetah",
+        "B": "Lion",
+        "C": "Gazelle",
+        "D": "Leopard",
+        "answer": "A"
+    }]

@@ -3,6 +3,7 @@ const jwtConfig = require('../config/jwt.config');
 const bcryptUtil = require('../utils/bcrypt.util');
 const jwtUtil = require('../utils/jwt.util');
 
+
 exports.register = async (req, res) => { 
     const isExist = await AuthService.findUserByEmail(req.body.email);
     if(isExist) {
@@ -31,6 +32,10 @@ exports.register = async (req, res) => {
 }
 
 exports.login = async (req, res) => { 
+   
+
+
+
     const user = await AuthService.findUserByEmail(req.body.email); 
     console.log(user);
     if (user!=null) {
