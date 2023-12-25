@@ -47,8 +47,8 @@ router.get('/category/:id', AuthGuard, ErrorHandler(CategoryController.getCatego
 router.post('/topic/create', AuthGuard, validate(topicValidate.topic), ErrorHandler(TopicController.create));
 router.put('/topic/:id', AuthGuard, validate(topicValidate.topic), ErrorHandler(TopicController.update));
 router.delete('/topic/:id', AuthGuard, ErrorHandler(TopicController.delete));
-router.get('/topic/search', AuthGuard, ErrorHandler(TopicController.getTopics));
-router.get('/topic/:id', AuthGuard, ErrorHandler(TopicController.getTopic));
+router.get('/topic/search', ErrorHandler(TopicController.getTopics));
+router.get('/topic/:id', ErrorHandler(TopicController.getTopic));
 
 
 //Lesson
@@ -74,32 +74,19 @@ router.delete('/quiz/:id', AuthGuard, ErrorHandler(QuizController.delete));
 router.get('/quiz/search', AuthGuard, ErrorHandler(QuizController.getQuizs));
 router.get('/quiz/:id', AuthGuard, ErrorHandler(QuizController.getQuiz));
 
+//CHECK ANSWER
+router.post('/quiz/check', AuthGuard, ErrorHandler(QuizController.checkAnswerQuiz));
+router.get('/quiz/rankquizz/:id', ErrorHandler(QuizController.getScoreByIDQuizz));
+router.get('/quiz/history/:iduser',AuthGuard, ErrorHandler(QuizController.getScoreByIDUser));
+
+
+//DASHBOARD
+router.get('/dashboard',AuthGuard, ErrorHandler(QuizController.dashboard));
 
 
 
-// SET STORAGE
-var storage = multer.diskStorage({
-    destination: function (req, file, cb) {
-      cb(null, 'uploads')
-    },
-    filename: function (req, file, cb) {
-      cb(null, file.fieldname + '-' + Date.now())
-    }
-  })
-   
-  var upload = multer({ storage: storage })
 
 
-
-router.post('/uploadfile', upload.single('myFile'), (req, res, next) => {
-const file = req.file
-if (!file) {
-    const error = new Error('Please upload a file')
-    error.httpStatusCode = 400
-    return next(error)
-}
-res.send(file)
-})
 
 router.all('*',  (req, res) => res.status(400).json({ message: 'Bad Request.'}));
 

@@ -1,8 +1,10 @@
 const QuestionService = require("../services/question.service");
 const TopicService = require("../services/topic.service");
+const LessonService = require("../services/lesson.service");
 const CategoryService = require("../services/category.service");
 const AuthService = require("../services/auth.service");
 const QuizService = require("../services/quiz.service");
+const ScoreService = require('../services/score.service');
 
 exports.create = async (req, res) => {
   if (__roleId == 3) {
@@ -191,6 +193,105 @@ exports.getQuiz = async (req, res) => {
 
   return res.status(200).json({
     data: quiz,
+    status: true,
+  });
+};
+
+
+exports.checkAnswerQuiz = async (req, res) => {
+  var idquiz = req.body.idquiz;
+  var iduser = req.body.iduser;
+  var total = req.body.total;
+  var list = req.body.list;
+
+  var score = 0;
+
+  list.map((element) => {
+    var question  = QuestionService.findByID(element['id']);
+    if(question.answer == element['answer']) {
+      score = score + 1;
+    }
+  });
+
+  var dateTimeStamp = parseInt(Date.now() / 1000);
+  var dataScore = {
+    idquiz : idquiz,
+    iduser : iduser,
+    total : total,
+    score : score,
+    historyanswer : JSON.stringify(list),
+    updatedat: dateTimeStamp,
+    createdat: dateTimeStamp
+  }
+
+  const scrore = await ScoreService.createScore(dataScore);
+
+  return res.json({
+    scrore: scrore,
+    message: "Check answer is successfully",
+    status: true,
+  });
+
+};
+
+
+
+exports.getScoreByIDQuizz = async (req, res) => {
+  var idquiz = req.params.id;
+  var scores = await ScoreService.findScoreByQuizID(idquiz);
+
+  scores = await Promise.all(
+    scores.map(async (score) => {
+      var user = await AuthService.findUserById(score.dataValues.iduser);
+      score.dataValues.user = user;
+      return score;
+    })
+  );
+  
+  return res.status(200).json({
+    total: scores.length,
+    data: scores,
+    status: true,
+  });
+
+};
+
+
+exports.getScoreByIDUser = async (req, res) => {
+  var iduser = req.params.iduser;
+  var scores = await ScoreService.findScoreByUserID(iduser);
+
+  scores = await Promise.all(
+    scores.map(async (score) => {
+      var quizz = await QuizService.findByID(score.dataValues.idquiz);
+      score.dataValues.quizz = quizz;
+      return score;
+    })
+  );
+  
+  return res.status(200).json({
+    total: scores.length,
+    data: scores,
+    status: true,
+  });
+
+};
+
+
+//DASHBOARD
+exports.dashboard = async (req, res) => {
+  var totalQuiz = await QuizService.getTotal();
+  var totalQuestion = await QuestionService.getTotal();
+  var totalUser = await AuthService.getTotal();
+  var totalCategory = await CategoryService.getTotal();
+  var totalLesson = await LessonService.getTotalAll();
+
+  return res.status(200).json({
+    totalQuiz: totalQuiz,
+    totalQuestion: totalQuestion,
+    totalUser: totalUser,
+    totalCategory: totalCategory,
+    totalLesson: totalLesson,
     status: true,
   });
 };

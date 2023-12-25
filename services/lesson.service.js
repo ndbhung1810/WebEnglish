@@ -38,6 +38,10 @@ exports.getTotal = (idtopic) => {
     return LessonModel.count({where:{idtopic:idtopic}});
 };
 
+exports.getTotalAll = () => {
+  return LessonModel.count();
+};
+
 exports.findByID = (id) => {
   return LessonModel.findByPk(id);
 };

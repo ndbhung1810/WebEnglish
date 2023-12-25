@@ -182,9 +182,6 @@ exports.getQuestions = async (req, res) => {
 
 exports.getQuestion = async (req, res) => { 
 
-
-
-
     var question = await QuestionService.findByID(req.params.id);
 
     var createdid = await AuthService.findUserById(question.idcreated);
