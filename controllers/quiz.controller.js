@@ -252,7 +252,7 @@ exports.getScoreByIDQuizz = async (req, res) => {
   
   return res.status(200).json({
     total: scores.length,
-    data: scores.sort((a,b) => a.score - b.score),
+    data: scores.sort((a,b) => b.score - a.score ),
     status: true,
   });
 
