@@ -226,10 +226,10 @@ exports.checkAnswerQuiz = async (req, res) => {
     createdat: dateTimeStamp
   }
 
-  const scrore = await ScoreService.createScore(dataScore);
+  const score = await ScoreService.createScore(dataScore);
 
   return res.json({
-    scrore: scrore,
+    score: score,
     message: "Check answer is successfully",
     status: true,
   });
@@ -252,7 +252,7 @@ exports.getScoreByIDQuizz = async (req, res) => {
   
   return res.status(200).json({
     total: scores.length,
-    data: scores,
+    data: scores.sort((a,b) => a.score - b.score),
     status: true,
   });
 
