@@ -205,13 +205,15 @@ exports.checkAnswerQuiz = async (req, res) => {
   var list = req.body.list;
 
   var score = 0;
-
-  list.map((element) => {
-    var question  = QuestionService.findByID(element['id']);
-    if(question.answer == element['answer']) {
-      score = score + 1;
-    }
-  });
+  await Promise.all(
+    list.map(async (element) => {
+      var question  =await QuestionService.findByID(element['id']);
+      console.log(question.answer);
+      if(question.answer == element['answer']) {
+        score = score + 1;
+      }
+    })
+  );
 
   var dateTimeStamp = parseInt(Date.now() / 1000);
   var dataScore = {
