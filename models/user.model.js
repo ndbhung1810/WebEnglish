@@ -11,6 +11,9 @@ const Users = sequelize.define('Users', {
     email: {
         type: DataTypes.STRING 
     },
+    image: {
+        type: DataTypes.STRING 
+    },
     birthday : {
         type: DataTypes.STRING 
     },

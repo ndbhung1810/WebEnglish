@@ -17,6 +17,7 @@ exports.register = async (req, res) => {
     const userData = {
         username: req.body.username,
         email: req.body.email,
+        image: req.body.image,
         birthday:req.body.birthday,
         roleid:req.body.roleid,
         active:1,
@@ -120,6 +121,7 @@ exports.updateUser = async (req, res) => {
     const userData = {
       username: req.body.username,
       email: req.body.email,
+      image: req.body.image,
       birthday: req.body.birthday,
       active: req.body.active,
       roleid: req.body.roleid,
@@ -160,6 +162,7 @@ exports.update = async (req, res) => {
     const userData = {
         username: req.body.username,
         email: req.body.email,
+        image: req.body.image,
         birthday:req.body.birthday,
         active:req.body.active,
         roleid:req.body.roleid,
