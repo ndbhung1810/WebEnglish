@@ -83,9 +83,8 @@ router.get('/quiz/history/:iduser',AuthGuard, ErrorHandler(QuizController.getSco
 //DASHBOARD
 router.get('/dashboard',AuthGuard, ErrorHandler(QuizController.dashboard));
 
-
-
-
+//DASHBOARD
+router.get('/staticquizz',AuthGuard, ErrorHandler(QuizController.dashboardStatic));
 
 
 router.all('*',  (req, res) => res.status(400).json({ message: 'Bad Request.'}));

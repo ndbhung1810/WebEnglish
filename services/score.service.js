@@ -25,3 +25,14 @@ exports.findScoreByUserID = (iduser) => {
 };
 
 
+
+exports.dashboard = () => {
+  return ScoreModel.findAll({
+    attributes: [
+      'idquiz',
+      [Sequelize.fn('COUNT', Sequelize.col('iduser')), 'count'],
+    ],
+    group: ['idquiz','iduser'],
+  });
+};
+

@@ -281,6 +281,23 @@ exports.getScoreByIDUser = async (req, res) => {
 
 
 //DASHBOARD
+exports.dashboardStatic = async (req, res) => {
+  var scores = await ScoreService.dashboard();
+  scores = await Promise.all(
+    scores.map(async (score) => {
+      var quizz = await QuizService.findByID(score.dataValues.idquiz);
+      score.dataValues.quizz = quizz;
+      return score;
+    })
+  );
+
+  return res.status(200).json({
+    data: scores,
+    status: true,
+  });
+};
+
+//DASHBOARD
 exports.dashboard = async (req, res) => {
   var totalQuiz = await QuizService.getTotal();
   var totalQuestion = await QuestionService.getTotal();
