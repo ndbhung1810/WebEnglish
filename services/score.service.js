@@ -36,3 +36,17 @@ exports.dashboard = () => {
   });
 };
 
+
+exports.dashboardrank = () => {
+   console.log("scores")
+  return ScoreModel.findAll({
+    attributes: [
+      'iduser',
+      [Sequelize.fn('sum', Sequelize.col('score')), 'total'],
+    ],
+    group: ['iduser'],
+    order: [
+      [Sequelize.fn('sum', Sequelize.col('score')), 'DESC'],
+    ],
+  });
+};

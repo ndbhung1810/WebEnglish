@@ -86,6 +86,9 @@ router.get('/dashboard',AuthGuard, ErrorHandler(QuizController.dashboard));
 //DASHBOARD
 router.get('/staticquizz',AuthGuard, ErrorHandler(QuizController.dashboardStatic));
 
+//DASHBOARD
+router.get('/staticrank',AuthGuard, ErrorHandler(QuizController.dashboardrank));
+
 
 router.all('*',  (req, res) => res.status(400).json({ message: 'Bad Request.'}));
 

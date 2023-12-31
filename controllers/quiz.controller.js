@@ -314,3 +314,22 @@ exports.dashboard = async (req, res) => {
     status: true,
   });
 };
+
+
+//DASHBOARD
+exports.dashboardrank = async (req, res) => {
+  var scores = await ScoreService.dashboardrank();
+  console.log("scores")
+  scores = await Promise.all(
+    scores.map(async (score) => {
+      var user = await AuthService.findByID(score.dataValues.iduser);
+      score.dataValues.user = user;
+      return score;
+    })
+  );
+
+  return res.status(200).json({
+    data: scores,
+    status: true,
+  });
+};
