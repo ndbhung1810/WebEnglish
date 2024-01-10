@@ -5,6 +5,12 @@ const Topics = sequelize.define('Topics', {
     name: {
         type: DataTypes.STRING 
     },
+    nameessay: {
+        type: DataTypes.STRING 
+    },
+    contentessay: {
+        type: DataTypes.STRING 
+    },
     image: {
         type: DataTypes.STRING 
     },

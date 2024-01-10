@@ -35,6 +35,7 @@ exports.findAll = (page, limit, query) => {
       limit:+limit,
       offset: skip,
       where: {
+        roleid: { $not: 1},
         [Op.or]:{
             username: { [Op.like]: `%${query}%` },
             email : { [Op.like]: `%${query}%` },
